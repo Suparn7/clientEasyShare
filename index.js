@@ -18,9 +18,9 @@ const emailForm = document.querySelector("#emailForm");
 
 const copyAlert = document.querySelector(".copyAlert");
 
-const host = "https://easy-share-7.herokuapp.com/";
-const uploadURL = `${host}api/files`;
-const emailURL = `${host}api/files/send`;
+const host = "https://easy-share-7.herokuapp.com";
+const uploadURL = `${host}/api/files`;
+const emailURL = `${host}/api/files/send`;
 
 
 const maxAllowedSize = 100 * 1024 * 1024; //100mb
