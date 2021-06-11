@@ -18,7 +18,7 @@ const emailForm = document.querySelector("#emailForm");
 
 const copyAlert = document.querySelector(".copyAlert");
 
-const host = "https://innshare.herokuapp.com/";
+const host = "https://easy-share-7.herokuapp.com/";
 const uploadURL = `${host}api/files`;
 const emailURL = `${host}api/files/send`;
 
