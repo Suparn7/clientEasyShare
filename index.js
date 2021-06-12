@@ -22,7 +22,7 @@ const emailURL = `${host}/api/files/send`;
 const maxAllowedSize = 100 * 1024 * 1024; //100mb
 
 
-browseBtn.addEventListener("click", () => {
+browseBtn.addEventListener("click", () => {//browse pe click krne se choose file
   fileInput.click();
 });
 
@@ -44,7 +44,7 @@ dropZone.addEventListener("drop", (e) => {
 });
 
 dropZone.addEventListener("dragover", (e) => {
-  e.preventDefault();
+  e.preventDefault();//download hojata hai drag krne se default behaviour hai
   dropZone.classList.add("dragged");
 
   // console.log("dropping file");
@@ -69,7 +69,7 @@ fileInput.addEventListener("change", () => {
 // sharing container listenrs
 copyURLBtn.addEventListener("click", () => {
   fileURL.select();
-  document.execCommand("copy");
+  document.execCommand("copy");//it'll copy the selected url
   showToast("Copied to clipboard");
 });
 
@@ -82,7 +82,7 @@ const uploadFile = () => {
 
   files = fileInput.files;
   const formData = new FormData();
-  formData.append("myfile", files[0]);
+  formData.append("myfile", files[0]);//ek hi file upload krne derhe abhi
 
   //show the uploader
   progressContainer.style.display = "block";
@@ -91,7 +91,7 @@ const uploadFile = () => {
   const xhr = new XMLHttpRequest();
 
   // listen for upload progress
-  xhr.upload.onprogress = function (event) {
+  xhr.upload.onprogress = function (event) {//to display progress
     // find the percentage of uploaded
     let percent = Math.round((100 * event.loaded) / event.total);
     progressPercent.innerText = percent;
@@ -107,14 +107,14 @@ const uploadFile = () => {
   };
 
   // listen for response which will give the link
-  xhr.onreadystatechange = function () {
+  xhr.onreadystatechange = function () {//event start,change finish se state milta hai 1,2,3,4 jaise
     if (xhr.readyState == XMLHttpRequest.DONE) {
-      onFileUploadSuccess(xhr.responseText);
+      onFileUploadSuccess(xhr.responseText);//issi link pe jayenge according to response ek JSON object aajati hai lastmei
     }
   };
 
-  xhr.open("POST", uploadURL);
-  xhr.send(formData);
+  xhr.open("POST", uploadURL);//file post krke leliya open krliya
+  xhr.send(formData);//formData mein daaldiya 
 };
 
 const onFileUploadSuccess = (res) => {
@@ -122,9 +122,9 @@ const onFileUploadSuccess = (res) => {
   status.innerText = "Uploaded";
 
   // remove the disabled attribute from form btn & make text send
-  emailForm[2].removeAttribute("disabled");
+  emailForm[2].removeAttribute("disabled");//jab file upload krne wala ho user toh disabled class htana mangta
   emailForm[2].innerText = "Send";
-  progressContainer.style.display = "none"; // hide the box
+  progressContainer.style.display = "none"; // hide the box after uploading
 
   const { file: url } = JSON.parse(res);
   console.log(url);
@@ -136,26 +136,27 @@ emailForm.addEventListener("submit", (e) => {
   e.preventDefault(); // stop submission
 
   // disable the button
-  emailForm[2].setAttribute("disabled", "true");
+  emailForm[2].setAttribute("disabled", "true");//button hai 2nd element , jab submit krdiya jaye toh fetch krne se pehle form ko disable krna pdega. Ham btn ko disable krrhe, setAttr btn mein jake disabled = true krke ayega
   emailForm[2].innerText = "Sending";
 
   const url = fileURL.value;
-
+  //ab form data bnake email pe bhejenege
   const formData = {
-    uuid: url.split("/").splice(-1, 1)[0],
+    uuid: url.split("/").splice(-1, 1)[0],//url ko / k baad split krne pe array aata hai jiske last mein unique id rhti h lets say uuid usko splice(-1,1) se nikaal rhe array ayega 1 hi element ka with uuid so [0]
     emailTo: emailForm.elements["to-email"].value,
     emailFrom: emailForm.elements["from-email"].value,
   };
   console.log(formData);
   fetch(emailURL, {
-    method: "POST",
-    headers: {
+    method: "POST",//post krrhe yaani bhejrhe
+    headers: {//kaise bhejrhe, kis format mein? json
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(formData),
+    body: JSON.stringify(formData),//js object json mein bdal jayega, yaahn content bhejrhe
   })
     .then((res) => res.json())
-    .then((data) => {
+    .then((data) => {//first then se response ko res.json se return hoyega, success tak async krke wait krrha hoga , 2nd wale then mein jo data ayega usko dekhenge ham
+      //console.log(data);
       if (data.success) {
         showToast("Email Sent");
         sharingContainer.style.display = "none"; // hide the box
@@ -166,7 +167,7 @@ emailForm.addEventListener("submit", (e) => {
 let toastTimer;
 // the toast function
 const showToast = (msg) => {
-  clearTimeout(toastTimer);
+  clearTimeout(toastTimer);//fullproof UI to stop users from doing any kind of chedkhani, they can't click multiple times 
   toast.innerText = msg;
   toast.classList.add("show");
   toastTimer = setTimeout(() => {

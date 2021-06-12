@@ -9,6 +9,8 @@
     font-family: system-ui;
     background: var(--main-bg-color);
     height: 98vh;
+    padding: 0;
+    margin: 0;
     overflow: hidden;
   }
   
@@ -76,6 +78,7 @@
     transform-origin: bottom;
   }
   
+  /* to make center wala sbse upar */
   .icon-container .center {
     z-index: 10;
   }
@@ -85,6 +88,8 @@
     transform: scale(0.9);
   }
   
+/* takecare of animation so that icon displaces and /* take care of center icon goes up when we hover */ */
+
   .dragged .center {
     transform: translateY(-5px);
   }
