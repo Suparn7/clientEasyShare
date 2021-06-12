@@ -18,7 +18,7 @@
     position: absolute;
     top: 5px;
     left: 5px;
-    width: 400px;
+    width: 200px;
   }
   
   .image-vector {
@@ -88,7 +88,7 @@
     transform: scale(0.9);
   }
   
-/* takecare of animation so that icon displaces and /* take care of center icon goes up when we hover */ */
+/* takecare of animation so that icon displaces and center wala goes up */
 
   .dragged .center {
     transform: translateY(-5px);
